@@ -1,0 +1,112 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #dce2df 0%, #a4b1a9 100%);
+  font-family: "Georgia", serif;
+}
+
+#book {
+  position: relative;
+  width: 480px;
+  height: 680px;
+  perspective: 1600px;
+}
+
+.page {
+  position: absolute;
+  inset: 0;
+  transform-origin: left;
+  transform-style: preserve-3d;
+  transition: transform 0.9s ease;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  background: #fdfbf7;
+}
+
+.front, .back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.front img, .back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.back { transform: rotateY(180deg); }
+
+input[type=checkbox] { display: none; }
+
+/* Flip-animatie */
+#p1:checked ~ #book #page1,
+#p2:checked ~ #book #page2,
+#p3:checked ~ #book #page3,
+#p4:checked ~ #book #page4,
+#p5:checked ~ #book #page5,
+#p6:checked ~ #book #page6,
+#p7:checked ~ #book #page7,
+#p8:checked ~ #book #page8 {
+  transform: rotateY(-180deg);
+  z-index: 1;
+}
+
+/* Stapelvolgorde */
+#page1 { z-index: 9; }
+#page2 { z-index: 8; }
+#page3 { z-index: 7; }
+#page4 { z-index: 6; }
+#page5 { z-index: 5; }
+#page6 { z-index: 4; }
+#page7 { z-index: 3; }
+#page8 { z-index: 2; }
+
+label {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+}
+
+/* Pagina-shading */
+.page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to left, rgba(0,0,0,0.05), transparent 70%);
+  pointer-events: none;
+}
+
+footer {
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  font-size: 0.8rem;
+  color: #444;
+  opacity: 0.7;
+}
+
+.back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #007BFF;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
